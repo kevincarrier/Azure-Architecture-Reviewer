@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/htmx-ext-sse@2.2.1/sse.js"></script>
+    <title>Azure Architecture Reviewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Azure Architecture Reviewer</h1>
+        <p>Supported formats: JSON, Terraform (.tf), Bicep (.bicep)</p>
+        <div class="form-section">
+            <p>Upload your architecture file for review:</p>
+            <form
+                hx-post="/review"
+                hx-swap="innerHTML"
+                hx-target="#response"
+                enctype="multipart/form-data">
+                <input type="file" name="file" accept=".json,.tf,.bicep" required>
+                <button type="submit">
+                    Review
+                </button>
+            </form>
+            <div id="response"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
