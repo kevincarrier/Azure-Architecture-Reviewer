@@ -1,0 +1,187 @@
+{
+    "resources": [
+        {
+            "id": "resource1",
+            "name": "badresource1",
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "eastus",
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "allowBlobPublicAccess": true,
+                "minimumTlsVersion": "TLS1_0",
+                "encryption": {
+                    "services": {
+                        "blob": {
+                            "enabled": false
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "resource2",
+            "name": "badresource2",
+            "type": "Microsoft.Sql/servers",
+            "location": "eastus",
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "restrictOutboundNetworkAccess": "Disabled",
+                "privateEndpointConnections": [],
+                "firewallRules": [{
+                    "name": "AllowAll",
+                    "startIpAddress": "0.0.0.0",
+                    "endIpAddress": "255.255.255.255"
+                }],
+                "transparentDataEncryption": {
+                    "status": "Disabled"
+                }
+            }
+        },
+        {
+            "id": "resource3",
+            "name": "badresource3",
+            "type": "Microsoft.Web/sites",
+            "location": "westeurope",
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "httpsOnly": false,
+                "privateEndpointConnections": [],
+                "siteConfig": {
+                    "minTlsVersion": "1.0",
+                    "ftpsState": "AllAllowed"
+                }
+            }
+        },
+        {
+            "id": "resource4",
+            "name": "badresource4",
+            "type": "Microsoft.Authorization/roleAssignments",
+            "location": "global",
+            "properties": {
+                "roleDefinitionName": "Owner",
+                "principalId": "user-sp=001",
+                "principalType": "ServicePrincipal",
+                "scope": "/subscriptions/1234567890",
+                "condition": null
+            }
+        },
+        {
+            "id": "resource5",
+            "name": "badresource5",
+            "type": "Microsoft.Network/applicationGateways",
+            "location": "eastus",
+            "properties": {
+                "publicIpAddress": { "id": "/subscriptions/1234567890/publicIPAddresses/appgw-ip" },
+                "webApplicationFirewallConfiguation": null,
+                "sku": {
+                    "name": "Standard_v2",
+                    "tier": "Standard_v2"
+                },
+                "sslPolicy": {
+                    "minProtocolVersion": "TLSv1_0"
+                }
+            }
+        },
+        {
+            "id": "resource6",
+            "name": "goodresource1",
+            "type": "Microsoft.KeyVault/vaults",
+            "location": "eastus",
+            "properties": {
+                "publicNetworkAccess": "Disabled",
+                "enableSoftDelete": true,
+                "enablePurgeProtection": true,
+                "privateEndpointConnections": [{ "id": "/privateEndpointConnections/kv-pe-001", "provisioningState": "Succeeded" }],
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "defaultAction": "Deny",
+                    "ipRules": []
+                }
+            }
+        },
+        {
+            "id": "resource7",
+            "name": "goodresource2",
+            "type": "Microsoft.Storage/storageAccounts",
+            "location": "northeurope",
+            "properties": {
+                "publicNetworkAccess": "Disabled",
+                "allowBlobPublicAccess": false,
+                "minimumTlsVersion": "TLS1_2",
+                "encryption": {
+                    "services": {
+                        "blob": {
+                            "enabled": true,
+                            "keyType": "Account"
+                        },
+                        "file": {
+                            "enabled": true,
+                            "keyType": "Account"
+                        }
+                    },
+                    "keySource": "Microsoft.Keyvault"
+                },
+                "privateEndpointConnections": [{ "id": "/privateEndpointConnections/sa-pe-001", "provisioningState": "Succeeded" }]
+            }
+        },
+        {
+            "id": "resource8",
+            "name": "badresource6",
+            "type":"Microsoft.Sql/servers",
+            "location": "eastus",
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "privateEndpointConnections": [],
+                "administrators": {
+                    "administratorType": "ActiveDirectory",
+                    "login": "sqladmin@contoso.com"
+                },
+                "firewallRules": [{
+                    "name": "AllowAzureIps",
+                    "startIpAddress": "0.0.0.0",
+                    "endIpAddress": "0.0.0.0"
+                }],
+                "transparentDataEncryption": {
+                    "status": "Disabled"
+                }
+            }
+        },
+        {
+            "id": "resource9",
+            "name": "goodresource3",
+            "type": "Microsoft.Network/applicationGateways",
+            "location": "westeurope",
+            "properties": {
+                "publicIpAddress": { "id": "/subscriptions/1234567890/publicIPAddresses/waf-pip" },
+                "webApplicationFirewallConfiguation": {
+                    "enabled": true,
+                    "firewallMode": "Prevention",
+                    "ruleSetType": "OWASP",
+                    "ruleSetVersion": "3.2"
+                },
+                "sku": {
+                    "name": "WAF_v2",
+                    "tier": "WAF_v2"
+                },
+                "sslPolicy": {
+                    "minProtocolVersion": "TLSv1_2",
+                    "policyType": "Custom"
+                }
+            }
+        },
+        {
+            "id": "resource10",
+            "name": "badresource7",
+            "type": "Microsoft.Authorization/roleAssignments",
+            "location": "global",
+            "properties": {
+                "roleDefinitionName": "Owner",
+                "principalId": "user-devteam-grp",
+                "principalType": "Group",
+                "scope": "/subscriptions/1234567890/resourceGroups/rg1",
+                "condition": null,
+                "assignedTo": "dev-team-all@contoso.com"
+            }
+        }
+    ]
+}
