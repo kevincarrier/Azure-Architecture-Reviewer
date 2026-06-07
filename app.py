@@ -32,6 +32,12 @@ def review():
         json_data = file_contents
     else:
         return jsonify({'error': 'Unsupported file type'}), 400
+    #html_response = f'''
+    #<div class="success">
+    #    <h3>File uploaded successfully!</h3>
+    #    {json.dumps(json_data, indent=2)}
+    #</div>
+    #'''
     return jsonify({'message': json_data}), 200
 
 @app.errorhandler(404)
