@@ -1,33 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/htmx.org"></script>
-    <script src="https://unpkg.com/htmx-ext-sse@2.2.1/sse.js"></script>
     <title>Azure Architecture Reviewer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Azure Architecture Reviewer</h1>
-        <p>Supported formats: JSON, Terraform (.tf), Bicep (.bicep)</p>
-        <div class="form-section">
-            <p>Upload your architecture file for review:</p>
-            <form
-                hx-post="/review"
-                hx-swap="innerHTML"
-                hx-target="#response"
-                enctype="multipart/form-data">
-                <input type="file" name="file" accept=".json,.tf,.bicep" required>
-                <button type="submit">
-                    Review
-                </button>
-            </form>
-            <div id="response"></div>
+    <h1>Azure Architecture Reviewer</h1>
+    <h3 class="tagline">Instant security, cost, identity & reliability analysis for your Azure cloud infrastructure</h3>
+    <p class="subtitle">Upload a <code>.bicep</code>, <code>.tf</code>, or <code>.json</code> file to begin.</p>
+    <form id="uploadForm">
+        <input type="file" name="file" accept=".json,.tf,.bicep" required>
+        <button type="submit" id="submitBtn">Review Architecture</button>
+    </form>
+    <div id="progressSection">
+        <h2>Progress</h2>
+        <ul id="statusList"></ul>
+    </div>
+    <div id = "summary">
+        <div class="summary-card" id="result">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="margin:0;">Summary</h2>
+                <button id="downloadPdfBtn" type="button">Download PDF</button>
+            </div>
+            <div class="score-display" id="totalScore">—</div>
+            <div class="score-label">Total Score</div>
+            <br />
+            <div id="scoreBreakdown">
+                <span id="securityScore"></span>
+                <span id="costScore"></span>
+                <span id="identityScore"></span>
+                <span id="reliabilityScore"></span>
+            </div>
+            <br/>
+            <h3>Key Risks</h3>
+            <ul id="keyRisks"></ul>
+            <h3>Top Architectural Risks</h3>
+            <ul id="topArchitecturalRisks"></ul>
+            <h3>Business Impact</h3>
+            <p id="businessImpact"></p>
+            <h3>Remediation Plan</h3>
+            <table class="style-table" id="remediationPlan">
+                <thead>
+                    <tr><th>Priority</th><th>Issue</th><th>Recommendation</th><th>Impact</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="summary-card" id="issues">
+            <h2>Issues Discovered</h2>
+            <h3>Security Issues</h3>
+            <table class="style-table" id="securityIssues">
+                <thead>
+                    <tr><th>Resource</th><th>Severity</th><th>Issue</th><th>Explanation</th><th>Recommendation</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <h3>Cost Issues</h3>
+            <table class="style-table" id="costIssues">
+                <thead>
+                    <tr><th>Resource</th><th>Severity</th><th>Issue</th><th>Explanation</th><th>Recommendation</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <h3>Identity Issues</h3>
+            <table class="style-table" id="identityIssues">
+                <thead>
+                    <tr><th>Resource</th><th>Severity</th><th>Issue</th><th>Explanation</th><th>Recommendation</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <h3>Reliability Issues</h3>
+            <table class="style-table" id="reliabilityIssues">
+                <thead>
+                    <tr><th>Resource</th><th>Severity</th><th>Issue</th><th>Explanation</th><th>Recommendation</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
