@@ -1,4 +1,4 @@
-# Azure-Architecture-Reviewer
+# Azure Architecture Reviewer
 
 ![Log](./images/logo.png)
 
