@@ -4,6 +4,14 @@
 
 The Azure Architecture Reviewer is a multi-agent Azure architecture assessment platform that provides automated security, cost, identity, and reliability reviews with actionable recommendations using Azure AI Foundry Agents and Python Flask.
 
+## Demo
+
+You can watch a demo of the Azure Architecture Reviewer below:
+
+<a href="https://youtu.be/Hvf2xnuunHM">
+  <img src="./images/youtube_play.png" alt="Watch the Demo" width="400">
+</a>
+
 ## Overview
 
 The Azure Architecture Reviewer allows users to upload Azure infrastructure definitions in:
